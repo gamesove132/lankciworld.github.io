@@ -31,10 +31,11 @@
         
         /* КАРТИНКИ РАНГІВ */
         .rank-art {
-            width: 140px; 
+            width: 80%;          /* Картинка займає 80% ширини картки */
+            max-width: 220px;    /* Але не стає більшою за 220px, щоб не розмило */
             height: auto;
             margin-bottom: 15px;
-            image-rendering: pixelated; /* Щоб піксель-арт був чітким */
+            image-rendering: pixelated; 
             transition: 0.3s;
         }
         .card:hover .rank-art { transform: scale(1.1); filter: brightness(1.2); }
