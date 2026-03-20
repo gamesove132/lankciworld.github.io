@@ -25,31 +25,31 @@
         .card { background: #1a1a1a; border: 2px solid #333; padding: 30px; border-radius: 15px; text-align: center; transition: 0.4s; display: flex; flex-direction: column; align-items: center; }
         .card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
         
-        /* Стилі для твоїх малюнків */
         .rank-art {
-            width: 150px; 
+            width: 160px; 
             height: auto;
             margin-bottom: 15px;
             transition: 0.3s;
+            /* Покращуємо відображення піксель-арту */
+            image-rendering: pixelated; 
         }
         .card:hover .rank-art { transform: scale(1.1); filter: brightness(1.2); }
 
-        /* Кольори рамок та сяйво картинок */
         .sigma { border-color: #808080; }
         .tsc { border-color: #eab308; }
-        .tsc .rank-art { filter: drop-shadow(0 0 10px rgba(234, 179, 8, 0.5)); }
+        .tsc .rank-art { filter: drop-shadow(0 0 15px rgba(234, 179, 8, 0.6)); }
         
         .dragon { border-color: #3b82f6; }
-        .dragon .rank-art { filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5)); }
+        .dragon .rank-art { filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.6)); }
         
         .chosen { border-color: #a855f7; }
-        .chosen .rank-art { filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.5)); }
+        .chosen .rank-art { filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.6)); }
         
         .darklord { border-color: #ef4444; }
-        .darklord .rank-art { filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.5)); }
+        .darklord .rank-art { filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.6)); }
         
         .hacker { border-color: #22c55e; background: linear-gradient(180deg, #1a1a1a 0%, #052e16 100%); }
-        .hacker .rank-art { filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.7)); }
+        .hacker .rank-art { filter: drop-shadow(0 0 15px rgba(34, 197, 94, 0.8)); }
 
         .price { font-size: 28px; color: #22c55e; font-weight: bold; margin: 20px 0; display: block; }
         .buy-btn { background: #ff0055; color: white; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; transition: 0.3s; }
@@ -95,7 +95,7 @@
             </div>
 
             <div class="card tsc">
-                <img src="img/second_coming.png" class="rank-art" onerror="this.style.display='none'">
+                <img src="./img/second_coming.png" class="rank-art" onerror="this.src='https://via.placeholder.com/150?text=Error'">
                 <h3>The Second Coming</h3>
                 <p class="lang" data-ua="Сила Творця: Політ та унікальні частки." data-en="Creator's Power: Flight and unique particles.">Сила Творця: Політ та унікальні частки.</p>
                 <span class="price">150 грн</span>
@@ -103,7 +103,7 @@
             </div>
 
             <div class="card dragon">
-                <img src="img/dragon.png" class="rank-art" onerror="this.style.display='none'">
+                <img src="./img/dragon.png" class="rank-art" onerror="this.src='https://via.placeholder.com/150?text=Error'">
                 <h3>Dragon</h3>
                 <p class="lang" data-ua="Дихання дракона: Ефекти вогнестійкості." data-en="Dragon Breath: Fire resistance effects.">Дихання дракона: Ефекти вогнестійкості.</p>
                 <span class="price">110 грн</span>
@@ -111,7 +111,7 @@
             </div>
 
             <div class="card chosen">
-                <img src="img/chosen_one.png" class="rank-art" onerror="this.style.display='none'">
+                <img src="./img/chosen_one.png" class="rank-art" onerror="this.src='https://via.placeholder.com/150?text=Error'">
                 <h3>The Chosen One</h3>
                 <p class="lang" data-ua="Обраний: Літання і лазери з очей." data-en="Chosen: Flying and lasers from the eyes.">Обраний: Літання і лазери з очей.</p>
                 <span class="price">190 грн</span>
@@ -119,7 +119,7 @@
             </div>
 
             <div class="card darklord">
-                <img src="img/dark_lord.png" class="rank-art" onerror="this.style.display='none'">
+                <img src="./img/dark_lord.png" class="rank-art" onerror="this.src='https://via.placeholder.com/150?text=Error'">
                 <h3>The Dark Lord</h3>
                 <p class="lang" data-ua="Дарк Лорд: Літання і фаервол." data-en="Lord of Darkness: Flight and firewall.">Літання і фаервол.</p>
                 <span class="price">280 грн</span>
@@ -127,7 +127,7 @@
             </div>
 
             <div class="card hacker">
-                <img src="img/h4ck3r.png" class="rank-art" onerror="this.style.display='none'">
+                <img src="./img/h4ck3r.png" class="rank-art" onerror="this.src='https://via.placeholder.com/150?text=Error'">
                 <h3>H4CK3R</h3>
                 <p class="lang" data-ua="Адмінські можливості та злам правил!" data-en="Admin abilities and rule breaking!">Адмінські можливості та злам правил!</p>
                 <span class="price">450 грн</span>
