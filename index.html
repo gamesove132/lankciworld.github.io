@@ -3,304 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LankciWorld — Офіційна сторінка</title>
+    <title>LankciWorld</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --orange: #ff6a00;
             --orange-dark: #cc4400;
-            --gold: #ffcc00;
+            --green: #22c55e;
+            --red: #ef4444;
             --bg: #080808;
             --surface: #111111;
             --surface2: #181818;
             --border: #2a2a2a;
             --text: #e8e8e8;
-            --muted: #888;
+            --muted: #777;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Exo 2', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
 
-        body {
-            font-family: 'Exo 2', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* HEADER */
         header {
-            position: relative;
-            padding: 50px 20px 40px;
-            text-align: center;
-            overflow: hidden;
+            position: relative; padding: 44px 20px 36px; text-align: center;
             background: linear-gradient(180deg, #1a0a00 0%, var(--bg) 100%);
-            border-bottom: 1px solid #2a1500;
+            border-bottom: 1px solid #1e1000; overflow: hidden;
         }
         header::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 50% 0%, rgba(255,106,0,0.15) 0%, transparent 70%);
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 50% -20%, rgba(255,106,0,0.18) 0%, transparent 65%);
             pointer-events: none;
         }
-        h1 {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(32px, 6vw, 62px);
-            font-weight: 900;
-            color: #fff;
-            letter-spacing: 6px;
-            text-shadow: 0 0 30px rgba(255,106,0,0.6), 0 0 60px rgba(255,106,0,0.2);
-        }
-        .tagline {
-            margin-top: 8px;
-            font-size: 13px;
-            color: var(--orange);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            opacity: 0.8;
-        }
+        h1 { font-family: 'Orbitron', monospace; font-size: clamp(28px, 6vw, 58px); font-weight: 900; color: #fff; letter-spacing: 6px; text-shadow: 0 0 30px rgba(255,106,0,0.5); }
+        .tagline { margin-top: 6px; font-size: 12px; color: var(--orange); letter-spacing: 4px; text-transform: uppercase; opacity: 0.75; }
 
-        /* NAV */
-        nav {
-            background: rgba(8,8,8,0.95);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0 20px;
-            z-index: 1000;
-            border-bottom: 1px solid #1e1e1e;
-            gap: 4px;
-            height: 54px;
-        }
-        nav a {
-            color: var(--muted);
-            text-decoration: none;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            padding: 8px 18px;
-            border-radius: 6px;
-            transition: all 0.2s;
-            border: 1px solid transparent;
-        }
-        nav a:hover { color: #fff; background: rgba(255,106,0,0.1); }
-        nav a.active { color: var(--orange); border-color: rgba(255,106,0,0.3); background: rgba(255,106,0,0.08); }
+        .server-block { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 
-        .lang-switch { display: flex; gap: 4px; margin-left: 16px; }
-        .lang-btn {
-            background: transparent;
-            color: var(--muted);
-            border: 1px solid var(--border);
-            padding: 5px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 11px;
-            font-family: 'Exo 2', sans-serif;
-            font-weight: 600;
-            letter-spacing: 1px;
-            transition: all 0.2s;
-        }
+        .ip-btn { display: flex; align-items: center; gap: 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 9px 16px; cursor: pointer; transition: all 0.2s; color: #fff; font-family: 'Orbitron', monospace; font-size: 13px; font-weight: 700; letter-spacing: 1px; }
+        .ip-btn:hover { border-color: var(--orange); background: rgba(255,106,0,0.08); }
+        .ip-btn .icon { font-size: 14px; opacity: 0.55; transition: opacity 0.2s; }
+        .ip-btn:hover .icon { opacity: 1; }
+        .ip-btn.copied { border-color: var(--green); color: var(--green); }
+
+        .status-badge { display: flex; align-items: center; gap: 7px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; font-size: 13px; font-weight: 600; min-width: 110px; justify-content: center; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); flex-shrink: 0; transition: background 0.4s; }
+        .status-dot.online { background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite; }
+        .status-dot.offline { background: var(--red); box-shadow: 0 0 6px var(--red); }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+        .players-block { display: flex; align-items: center; gap: 10px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 9px 16px; min-width: 190px; }
+        .players-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
+        .players-bar-wrap { flex: 1; background: #222; border-radius: 4px; height: 5px; overflow: hidden; }
+        .players-bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--orange), #ffcc00); transition: width 0.9s ease; width: 0%; }
+        .players-count { font-family: 'Orbitron', monospace; font-size: 11px; font-weight: 700; color: #fff; white-space: nowrap; }
+
+        nav { background: rgba(8,8,8,0.97); backdrop-filter: blur(10px); position: sticky; top: 0; display: flex; justify-content: center; align-items: center; padding: 0 20px; z-index: 1000; border-bottom: 1px solid #1a1a1a; gap: 4px; height: 52px; }
+        nav a { color: var(--muted); text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 12px; letter-spacing: 1.5px; cursor: pointer; padding: 7px 16px; border-radius: 6px; transition: all 0.2s; border: 1px solid transparent; }
+        nav a:hover { color: #fff; background: rgba(255,106,0,0.08); }
+        nav a.active { color: var(--orange); border-color: rgba(255,106,0,0.25); background: rgba(255,106,0,0.06); }
+        .lang-switch { display: flex; gap: 4px; margin-left: 14px; }
+        .lang-btn { background: transparent; color: var(--muted); border: 1px solid var(--border); padding: 5px 11px; border-radius: 5px; cursor: pointer; font-size: 11px; font-family: 'Exo 2', sans-serif; font-weight: 600; letter-spacing: 1px; transition: all 0.2s; }
         .lang-btn:hover { color: #fff; border-color: #444; }
         .lang-btn.active { background: var(--orange); border-color: var(--orange); color: #fff; }
 
-        /* LAYOUT */
-        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; flex: 1; width: 100%; }
-        .page-section { display: none; animation: fadeIn 0.35s ease; }
+        .container { max-width: 1100px; margin: 36px auto; padding: 0 20px; flex: 1; width: 100%; }
+        .page-section { display: none; animation: fadeIn 0.3s ease; }
         .page-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* SHOP GRID */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 22px 18px 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            transition: all 0.25s;
-            position: relative;
-            overflow: hidden;
-        }
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: var(--rank-color, var(--orange));
-            opacity: 0.6;
-            transition: opacity 0.25s;
-        }
-        .card:hover { border-color: #333; transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.5); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 16px 16px; display: flex; flex-direction: column; gap: 10px; transition: all 0.25s; position: relative; overflow: hidden; }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--rank-color, var(--orange)); opacity: 0.5; transition: opacity 0.25s; }
+        .card:hover { border-color: #333; transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.5); }
         .card:hover::before { opacity: 1; }
-
-        .rank-name {
-            font-family: 'Orbitron', monospace;
-            font-size: 15px;
-            font-weight: 700;
-            text-align: center;
-            color: var(--rank-color, var(--orange));
-        }
-        .price {
-            font-size: 24px;
-            font-weight: 700;
-            color: #4ade80;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-        .buy-btn {
-            background: var(--orange);
-            color: #fff;
-            padding: 10px;
-            text-decoration: none;
-            border-radius: 7px;
-            font-weight: 700;
-            font-size: 13px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-align: center;
-            display: block;
-            transition: all 0.2s;
-        }
+        .rank-name { font-family: 'Orbitron', monospace; font-size: 14px; font-weight: 700; text-align: center; color: var(--rank-color, var(--orange)); }
+        .price { font-size: 22px; font-weight: 700; color: #4ade80; text-align: center; }
+        .buy-btn { background: var(--orange); color: #fff; padding: 9px; text-decoration: none; border-radius: 7px; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; text-align: center; display: block; transition: background 0.2s; }
         .buy-btn:hover { background: var(--orange-dark); }
 
-        /* FEATURES */
-        .f-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 22px 18px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.25s;
-        }
-        .f-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: var(--rank-color, var(--orange));
-        }
+        .f-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 16px; position: relative; overflow: hidden; transition: all 0.25s; }
+        .f-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--rank-color, var(--orange)); }
         .f-card:hover { border-color: #333; transform: translateY(-3px); }
-        .f-card h3 {
-            font-family: 'Orbitron', monospace;
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--rank-color, var(--orange));
-            margin-bottom: 14px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
-        }
-        .features-list { list-style: none; font-size: 13px; color: #bbb; line-height: 1.7; }
+        .f-card h3 { font-family: 'Orbitron', monospace; font-size: 13px; font-weight: 700; color: var(--rank-color, var(--orange)); margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+        .features-list { list-style: none; font-size: 13px; color: #bbb; line-height: 1.8; }
         .features-list li::before { content: "▸ "; color: var(--orange); }
-        .kit-tag {
-            background: rgba(255,106,0,0.12);
-            color: var(--orange);
-            border: 1px solid rgba(255,106,0,0.25);
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            display: block;
-            text-align: center;
-            margin-top: 14px;
-            letter-spacing: 1px;
-        }
+        .kit-tag { background: rgba(255,106,0,0.1); color: var(--orange); border: 1px solid rgba(255,106,0,0.2); padding: 5px 10px; border-radius: 6px; font-size: 11px; font-family: 'Orbitron', monospace; font-weight: 700; display: block; text-align: center; margin-top: 12px; letter-spacing: 1px; }
 
-        /* RULES */
-        .rules-box {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 36px 40px;
-            max-width: 750px;
-        }
-        .rules-box h2 {
-            font-family: 'Orbitron', monospace;
-            font-size: 18px;
-            color: var(--orange);
-            letter-spacing: 3px;
-            margin-bottom: 28px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border);
-        }
-        .rule-category {
-            margin-bottom: 28px;
-        }
-        .rule-category h3 {
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--orange);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .rule-category h3::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-        .rule-item {
-            display: flex;
-            gap: 14px;
-            padding: 10px 14px;
-            border-radius: 8px;
-            margin-bottom: 6px;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            align-items: flex-start;
-            font-size: 14px;
-        }
-        .rule-num {
-            font-family: 'Orbitron', monospace;
-            font-size: 11px;
-            color: var(--orange);
-            font-weight: 700;
-            min-width: 32px;
-            padding-top: 1px;
-        }
+        .rules-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px 36px; max-width: 720px; }
+        .rules-box h2 { font-family: 'Orbitron', monospace; font-size: 16px; color: var(--orange); letter-spacing: 3px; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+        .rule-category { margin-bottom: 24px; }
+        .rule-category h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--orange); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .rule-category h3::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+        .rule-item { display: flex; gap: 12px; padding: 10px 13px; border-radius: 7px; margin-bottom: 5px; background: var(--surface2); border: 1px solid var(--border); font-size: 13px; }
+        .rule-num { font-family: 'Orbitron', monospace; font-size: 10px; color: var(--orange); font-weight: 700; min-width: 28px; padding-top: 2px; }
         .rule-text { color: #ccc; line-height: 1.5; }
         .rule-text b { color: #fff; }
-        .punishment {
-            display: inline-block;
-            margin-top: 4px;
-            background: rgba(255,106,0,0.1);
-            border: 1px solid rgba(255,106,0,0.2);
-            color: var(--orange);
-            font-size: 11px;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-        }
+        .punishment { display: inline-block; margin-top: 4px; background: rgba(255,106,0,0.1); border: 1px solid rgba(255,106,0,0.2); color: var(--orange); font-size: 11px; padding: 2px 7px; border-radius: 4px; font-weight: 600; }
 
-        footer { text-align: center; padding: 30px; color: #333; font-size: 13px; border-top: 1px solid #111; margin-top: 40px; }
+        footer { text-align: center; padding: 28px; color: #2a2a2a; font-size: 13px; border-top: 1px solid #111; margin-top: 40px; }
         footer span { color: var(--orange); }
+
+        .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px); background: var(--green); color: #000; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 13px; letter-spacing: 1px; transition: transform 0.3s ease; z-index: 9999; pointer-events: none; }
+        .toast.show { transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 <body>
 
 <header>
     <h1>LANKCI WORLD</h1>
-    <p class="tagline">Minecraft Server</p>
+    <p class="tagline">Minecraft Anarchy Server</p>
+    <div class="server-block">
+        <button class="ip-btn" id="ipBtn" onclick="copyIP()">
+            <span>LankciWorld.mcsh.io</span>
+            <span class="icon">⧉</span>
+        </button>
+        <div class="status-badge">
+            <div class="status-dot" id="statusDot"></div>
+            <span id="statusText">Перевірка...</span>
+        </div>
+        <div class="players-block">
+            <span class="players-label">Гравці</span>
+            <div class="players-bar-wrap"><div class="players-bar-fill" id="playersBar"></div></div>
+            <span class="players-count" id="playersCount">—/24</span>
+        </div>
+    </div>
 </header>
 
 <nav>
-    <a onclick="showPage('donate')" id="nav-donate" class="active lang" data-ua="Магазин" data-en="Shop">Магазин</a>
-    <a onclick="showPage('features')" id="nav-features" class="lang" data-ua="Функціонал" data-en="Features">Функціонал</a>
-    <a onclick="showPage('rules')" id="nav-rules" class="lang" data-ua="Правила" data-en="Rules">Правила</a>
+    <a onclick="showPage('donate')" id="nav-donate" class="active">Магазин</a>
+    <a onclick="showPage('features')" id="nav-features">Функціонал</a>
+    <a onclick="showPage('rules')" id="nav-rules">Правила</a>
     <div class="lang-switch">
         <button id="btn-ua" class="lang-btn active" onclick="setLang('ua')">UA</button>
         <button id="btn-en" class="lang-btn" onclick="setLang('en')">EN</button>
@@ -308,227 +137,67 @@
 </nav>
 
 <div class="container">
-
-    <!-- МАГАЗИН -->
     <section id="donate" class="page-section active">
         <div class="grid">
-            <div class="card" style="--rank-color:#ffd700">
-                <div class="rank-name">Imperator</div>
-                <div class="price">1250 грн</div>
-                <a href="https://t.me/Kostyanchu_original" class="buy-btn lang" data-ua="Придбати" data-en="Buy Now">Придбати</a>
-            </div>
-            <div class="card" style="--rank-color:#32cd32">
-                <div class="rank-name">The Second Coming</div>
-                <div class="price">489 грн</div>
-                <a href="https://t.me/Kostyanchu_original" class="buy-btn lang" data-ua="Придбати" data-en="Buy Now">Придбати</a>
-            </div>
-            <div class="card" style="--rank-color:#22c55e">
-                <div class="rank-name">H4CK3R</div>
-                <div class="price">1574 грн</div>
-                <a href="https://t.me/Kostyanchu_original" class="buy-btn lang" data-ua="Придбати" data-en="Buy Now">Придбати</a>
-            </div>
-            <div class="card" style="--rank-color:#ef4444">
-                <div class="rank-name">The Dark Lord</div>
-                <div class="price">300 грн</div>
-                <a href="https://t.me/Kostyanchu_original" class="buy-btn lang" data-ua="Придбати" data-en="Buy Now">Придбати</a>
-            </div>
-            <div class="card" style="--rank-color:#ffff00">
-                <div class="rank-name">The Chosen One</div>
-                <div class="price">499 грн</div>
-                <a href="https://t.me/Kostyanchu_original" class="buy-btn lang" data-ua="Придбати" data-en="Buy Now">Придбати</a>
-            </div>
-            <div class="card" style="--rank-color:#3b82f6">
-                <div class="rank-name">Dragon</div>
-                <div class="price">357 грн</div>
-                <a href="https://t.me/Kostyanchu_original" class="buy-btn lang" data-ua="Придбати" data-en="Buy Now">Придбати</a>
-            </div>
-            <div class="card" style="--rank-color:#00d4ff">
-                <div class="rank-name">Hero</div>
-                <div class="price">179 грн</div>
-                <a href="https://t.me/Kostyanchu_original" class="buy-btn lang" data-ua="Придбати" data-en="Buy Now">Придбати</a>
-            </div>
-            <div class="card" style="--rank-color:#555">
-                <div class="rank-name" style="color:#555">Скоро...</div>
-                <div class="price" style="color:#444">???</div>
-                <a href="#" class="buy-btn" style="background:#222;cursor:default" data-ua="Скоро" data-en="Soon">Скоро</a>
-            </div>
+            <div class="card" style="--rank-color:#ffd700"><div class="rank-name">Imperator</div><div class="price">1250 грн</div><a href="https://t.me/Kostyanchu_original" class="buy-btn">Придбати</a></div>
+            <div class="card" style="--rank-color:#32cd32"><div class="rank-name">The Second Coming</div><div class="price">489 грн</div><a href="https://t.me/Kostyanchu_original" class="buy-btn">Придбати</a></div>
+            <div class="card" style="--rank-color:#22c55e"><div class="rank-name">H4CK3R</div><div class="price">1574 грн</div><a href="https://t.me/Kostyanchu_original" class="buy-btn">Придбати</a></div>
+            <div class="card" style="--rank-color:#ef4444"><div class="rank-name">The Dark Lord</div><div class="price">300 грн</div><a href="https://t.me/Kostyanchu_original" class="buy-btn">Придбати</a></div>
+            <div class="card" style="--rank-color:#ffff00"><div class="rank-name">The Chosen One</div><div class="price">499 грн</div><a href="https://t.me/Kostyanchu_original" class="buy-btn">Придбати</a></div>
+            <div class="card" style="--rank-color:#3b82f6"><div class="rank-name">Dragon</div><div class="price">357 грн</div><a href="https://t.me/Kostyanchu_original" class="buy-btn">Придбати</a></div>
+            <div class="card" style="--rank-color:#00d4ff"><div class="rank-name">Hero</div><div class="price">179 грн</div><a href="https://t.me/Kostyanchu_original" class="buy-btn">Придбати</a></div>
+            <div class="card" style="--rank-color:#444"><div class="rank-name" style="color:#444">Скоро...</div><div class="price" style="color:#333">???</div><a href="#" class="buy-btn" style="background:#1a1a1a;cursor:default">Скоро</a></div>
         </div>
     </section>
 
-    <!-- ФУНКЦІОНАЛ -->
     <section id="features" class="page-section">
         <div class="grid">
-            <div class="f-card" style="--rank-color:#ffd700">
-                <h3>Imperator</h3>
-                <ul class="features-list">
-                    <li>Політ /fly</li>
-                    <li>Час та погода</li>
-                    <li>8 точок дому /sethome</li>
-                    <li>Блискавка (тролінг)</li>
-                </ul>
-                <div class="kit-tag">/kit imperator</div>
-            </div>
-            <div class="f-card" style="--rank-color:#32cd32">
-                <h3>The Second Coming</h3>
-                <ul class="features-list">
-                    <li>Політ /fly</li>
-                    <li>5 точок дому /sethome</li>
-                    <li>Ситість /feed</li>
-                </ul>
-                <div class="kit-tag">/kit second</div>
-            </div>
-            <div class="f-card" style="--rank-color:#22c55e">
-                <h3>H4CK3R</h3>
-                <ul class="features-list">
-                    <li>10 точок дому /sethome</li>
-                    <li>Політ /fly</li>
-                    <li>Верстак /workbench</li>
-                </ul>
-                <div class="kit-tag">/kit h4ck3r</div>
-            </div>
-            <div class="f-card" style="--rank-color:#ef4444">
-                <h3>The Dark Lord</h3>
-                <ul class="features-list">
-                    <li>Ефекти темряви</li>
-                    <li>Підпалити /burn</li>
-                </ul>
-                <div class="kit-tag">/kit dark_lord</div>
-            </div>
-            <div class="f-card" style="--rank-color:#ffff00">
-                <h3>The Chosen One</h3>
-                <ul class="features-list">
-                    <li>Політ /fly</li>
-                    <li>Зняття ефектів</li>
-                    <li>Загасити вогонь</li>
-                </ul>
-                <div class="kit-tag">/kit chosen</div>
-            </div>
-            <div class="f-card" style="--rank-color:#3b82f6">
-                <h3>Dragon</h3>
-                <ul class="features-list">
-                    <li>Політ /fly</li>
-                    <li>Імунітет до лави</li>
-                    <li>Блок на голову</li>
-                </ul>
-                <div class="kit-tag">/kit dragon</div>
-            </div>
-            <div class="f-card" style="--rank-color:#00d4ff">
-                <h3>Hero</h3>
-                <ul class="features-list">
-                    <li>2 точки дому</li>
-                    <li>Лікування /heal</li>
-                </ul>
-                <div class="kit-tag">/kit hero</div>
-            </div>
-            <div class="f-card" style="--rank-color:#555">
-                <h3 style="color:#555">Скоро</h3>
-                <ul class="features-list"><li>???</li><li>???</li></ul>
-                <div class="kit-tag" style="color:#555;border-color:#222">???</div>
-            </div>
+            <div class="f-card" style="--rank-color:#ffd700"><h3>Imperator</h3><ul class="features-list"><li>Політ /fly</li><li>Час та погода</li><li>8 точок дому /sethome</li><li>Блискавка (тролінг)</li></ul><div class="kit-tag">/kit imperator</div></div>
+            <div class="f-card" style="--rank-color:#32cd32"><h3>The Second Coming</h3><ul class="features-list"><li>Політ /fly</li><li>5 точок дому /sethome</li><li>Ситість /feed</li></ul><div class="kit-tag">/kit second</div></div>
+            <div class="f-card" style="--rank-color:#22c55e"><h3>H4CK3R</h3><ul class="features-list"><li>10 точок дому /sethome</li><li>Політ /fly</li><li>Верстак /workbench</li></ul><div class="kit-tag">/kit h4ck3r</div></div>
+            <div class="f-card" style="--rank-color:#ef4444"><h3>The Dark Lord</h3><ul class="features-list"><li>Ефекти темряви</li><li>Підпалити /burn</li></ul><div class="kit-tag">/kit dark_lord</div></div>
+            <div class="f-card" style="--rank-color:#ffff00"><h3>The Chosen One</h3><ul class="features-list"><li>Політ /fly</li><li>Зняття ефектів</li><li>Загасити вогонь</li></ul><div class="kit-tag">/kit chosen</div></div>
+            <div class="f-card" style="--rank-color:#3b82f6"><h3>Dragon</h3><ul class="features-list"><li>Політ /fly</li><li>Імунітет до лави</li><li>Блок на голову</li></ul><div class="kit-tag">/kit dragon</div></div>
+            <div class="f-card" style="--rank-color:#00d4ff"><h3>Hero</h3><ul class="features-list"><li>2 точки дому</li><li>Лікування /heal</li></ul><div class="kit-tag">/kit hero</div></div>
+            <div class="f-card" style="--rank-color:#444"><h3 style="color:#444">Скоро</h3><ul class="features-list"><li>???</li><li>???</li></ul><div class="kit-tag" style="color:#444;border-color:#222">???</div></div>
         </div>
     </section>
 
-    <!-- ПРАВИЛА -->
     <section id="rules" class="page-section">
         <div class="rules-box">
             <h2>ПРАВИЛА СЕРВЕРА</h2>
-
             <div class="rule-category">
                 <h3>1. Поведінка в чаті</h3>
-                <div class="rule-item">
-                    <span class="rule-num">1.1</span>
-                    <div class="rule-text">
-                        <b>Образа батьків</b> гравців<br>
-                        <span class="punishment">Мут 3 дні</span>
-                    </div>
-                </div>
-                <div class="rule-item">
-                    <span class="rule-num">1.2</span>
-                    <div class="rule-text">
-                        <b>Образа сервера</b> — негативні висловлювання про проект<br>
-                        <span class="punishment">Мут 5 хвилин</span>
-                    </div>
-                </div>
-                <div class="rule-item">
-                    <span class="rule-num">1.3</span>
-                    <div class="rule-text">
-                        <b>Образа адмінів / модераторів</b><br>
-                        <span class="punishment">Мут 30 хвилин</span>
-                    </div>
-                </div>
-                <div class="rule-item">
-                    <span class="rule-num">1.4</span>
-                    <div class="rule-text">
-                        <b>Спам у чаті</b> — повторювані повідомлення<br>
-                        <span class="punishment">Мут 15 хвилин</span>
-                    </div>
-                </div>
-                <div class="rule-item">
-                    <span class="rule-num">1.5</span>
-                    <div class="rule-text">
-                        <b>Реклама</b> інших серверів або ресурсів<br>
-                        <span class="punishment">Бан 7 днів</span>
-                    </div>
-                </div>
+                <div class="rule-item"><span class="rule-num">1.1</span><div class="rule-text"><b>Образа батьків</b> гравців<br><span class="punishment">Мут 3 дні</span></div></div>
+                <div class="rule-item"><span class="rule-num">1.2</span><div class="rule-text"><b>Образа сервера</b><br><span class="punishment">Мут 5 хвилин</span></div></div>
+                <div class="rule-item"><span class="rule-num">1.3</span><div class="rule-text"><b>Образа адмінів / модераторів</b><br><span class="punishment">Мут 30 хвилин</span></div></div>
+                <div class="rule-item"><span class="rule-num">1.4</span><div class="rule-text"><b>Спам у чаті</b><br><span class="punishment">Мут 15 хвилин</span></div></div>
+                <div class="rule-item"><span class="rule-num">1.5</span><div class="rule-text"><b>Реклама</b> інших серверів<br><span class="punishment">Бан 7 днів</span></div></div>
+                <div class="rule-item"><span class="rule-num">1.6</span><div class="rule-text"><b>Образа гравців</b><br><span class="punishment">Мут 1 година</span></div></div>
             </div>
-
             <div class="rule-category">
                 <h3>2. Читерство</h3>
-                <div class="rule-item">
-                    <span class="rule-num">2.1</span>
-                    <div class="rule-text">
-                        <b>Використання читів</b> — будь-яких модів що дають перевагу<br>
-                        <span class="punishment">Бан 32 дні</span>
-                    </div>
-                </div>
-                <div class="rule-item">
-                    <span class="rule-num">2.2</span>
-                    <div class="rule-text">
-                        <b>Зізнання в читерстві</b> до покарання<br>
-                        <span class="punishment">Бан 14 днів</span>
-                    </div>
-                </div>
-                <div class="rule-item">
-                    <span class="rule-num">2.3</span>
-                    <div class="rule-text">
-                        <b>Використання багів</b> — навмисне використання вразливостей<br>
-                        <span class="punishment">Бан 14 днів</span>
-                    </div>
-                </div>
+                <div class="rule-item"><span class="rule-num">2.1</span><div class="rule-text"><b>Використання читів</b><br><span class="punishment">Бан 32 дні</span></div></div>
+                <div class="rule-item"><span class="rule-num">2.2</span><div class="rule-text"><b>Зізнання до покарання</b><br><span class="punishment">Бан 14 днів</span></div></div>
+                <div class="rule-item"><span class="rule-num">2.3</span><div class="rule-text"><b>Використання багів</b><br><span class="punishment">Бан 14 днів</span></div></div>
             </div>
-
             <div class="rule-category">
                 <h3>3. Гра</h3>
-                <div class="rule-item">
-                    <span class="rule-num">3.1</span>
-                    <div class="rule-text">
-                        <b>Гриферство</b> — руйнування чужих будівель<br>
-                        <span class="punishment">Дозволено ✓</span>
-                    </div>
-                </div>
-                <div class="rule-item">
-                    <span class="rule-num">3.2</span>
-                    <div class="rule-text">
-                        <b>PvP</b> — вбивство інших гравців<br>
-                        <span class="punishment">Дозволено ✓</span>
-                    </div>
-                </div>
-                <div class="rule-item">
-                    <span class="rule-num">3.3</span>
-                    <div class="rule-text">
-                        <b>Видача себе за адміна / стаф</b> — обман гравців<br>
-                        <span class="punishment">Бан 7 днів</span>
-                    </div>
-                </div>
+                <div class="rule-item"><span class="rule-num">3.1</span><div class="rule-text"><b>Гриферство</b><br><span class="punishment">Дозволено ✓</span></div></div>
+                <div class="rule-item"><span class="rule-num">3.2</span><div class="rule-text"><b>PvP</b><br><span class="punishment">Дозволено ✓</span></div></div>
+                <div class="rule-item"><span class="rule-num">3.3</span><div class="rule-text"><b>Видавати себе за адміна / стаф</b><br><span class="punishment">Бан 7 днів</span></div></div>
             </div>
         </div>
     </section>
-
 </div>
 
 <footer>LankciWorld <span>2024–2026</span> · Всі права захищені</footer>
+<div class="toast" id="toast">✓ IP скопійовано!</div>
 
 <script>
+    const SERVER_IP = 'LankciWorld.mcsh.io';
+    const MAX_PLAYERS = 24;
+
     function showPage(p) {
         document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
         document.querySelectorAll('nav a').forEach(l => l.classList.remove('active'));
@@ -537,14 +206,56 @@
     }
 
     function setLang(l) {
-        document.querySelectorAll('[data-ua]').forEach(e => {
-            if (e.tagName === 'A' || e.tagName === 'BUTTON') {
-                e.textContent = e.getAttribute('data-' + l);
-            }
-        });
+        const t = { ua: ['Магазин','Функціонал','Правила'], en: ['Shop','Features','Rules'] };
+        ['donate','features','rules'].forEach((p,i) => document.getElementById('nav-'+p).textContent = t[l][i]);
         document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('btn-' + l).classList.add('active');
     }
+
+    function copyIP() {
+        navigator.clipboard.writeText(SERVER_IP).then(() => {
+            document.getElementById('ipBtn').classList.add('copied');
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                document.getElementById('ipBtn').classList.remove('copied');
+                toast.classList.remove('show');
+            }, 2000);
+        });
+    }
+
+    async function fetchStatus() {
+        const dot = document.getElementById('statusDot');
+        const text = document.getElementById('statusText');
+        const bar = document.getElementById('playersBar');
+        const count = document.getElementById('playersCount');
+        try {
+            const res = await fetch(`https://api.mcsrvstat.us/2/${SERVER_IP}`);
+            const data = await res.json();
+            if (data.online) {
+                const online = data.players?.online ?? 0;
+                const max = data.players?.max ?? MAX_PLAYERS;
+                dot.className = 'status-dot online';
+                text.textContent = 'Онлайн';
+                text.style.color = '#22c55e';
+                bar.style.width = Math.min((online / max) * 100, 100) + '%';
+                count.textContent = `${online}/${max}`;
+            } else {
+                dot.className = 'status-dot offline';
+                text.textContent = 'Офлайн';
+                text.style.color = '#ef4444';
+                bar.style.width = '0%';
+                count.textContent = `0/${MAX_PLAYERS}`;
+            }
+        } catch {
+            dot.className = 'status-dot';
+            text.textContent = 'Недоступно';
+            count.textContent = `—/${MAX_PLAYERS}`;
+        }
+    }
+
+    fetchStatus();
+    setInterval(fetchStatus, 60000);
 </script>
 </body>
 </html>
