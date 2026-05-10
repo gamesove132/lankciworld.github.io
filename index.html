@@ -2,25 +2,25 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>LankciWorld</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@400;600&display=swap');
 
         :root {
             --orange: #ff6a00;
-            --orange-dark: #cc4400;
+            --od: #cc4400;
             --green: #22c55e;
             --red: #ef4444;
             --bg: #080808;
-            --surface: #111;
-            --surface2: #181818;
-            --border: #2a2a2a;
+            --s1: #111;
+            --s2: #181818;
+            --br: #2a2a2a;
             --text: #e8e8e8;
             --muted: #666;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Exo 2', 'Segoe UI', sans-serif;
@@ -30,245 +30,244 @@
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
         }
 
-        /* HEADER */
+        /* ═══ HEADER ═══ */
         header {
             position: relative;
-            padding: clamp(28px,5vw,52px) 20px clamp(22px,4vw,38px);
+            padding: 36px 16px 28px;
             text-align: center;
-            background: linear-gradient(180deg,#1f0c00,var(--bg));
+            background: linear-gradient(180deg, #1f0c00, var(--bg));
             border-bottom: 1px solid #201000;
             overflow: hidden;
         }
         header::before {
-            content:'';
-            position:absolute;inset:0;
-            background:radial-gradient(ellipse at 50% -10%,rgba(255,106,0,.2) 0%,transparent 60%);
-            pointer-events:none;
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 50% -10%, rgba(255,106,0,.2) 0%, transparent 60%);
+            pointer-events: none;
         }
-
-        /* частинки */
-        .pt { position:absolute; border-radius:50%; background:var(--orange); pointer-events:none; }
+        .pt { position: absolute; border-radius: 50%; background: var(--orange); pointer-events: none; }
 
         h1 {
-            font-family:'Orbitron',monospace;
-            font-size:clamp(24px,7vw,58px);
-            font-weight:900;
-            color:#fff;
-            letter-spacing:clamp(2px,1vw,8px);
-            text-shadow:0 0 40px rgba(255,106,0,.55);
-            position:relative;z-index:1;
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(22px, 8vw, 58px);
+            font-weight: 900; color: #fff;
+            letter-spacing: clamp(1px, 1.5vw, 8px);
+            text-shadow: 0 0 40px rgba(255,106,0,.5);
+            position: relative; z-index: 1;
         }
         .tagline {
-            margin-top:6px;
-            font-size:clamp(10px,1.5vw,13px);
-            color:var(--orange);
-            letter-spacing:clamp(2px,0.8vw,5px);
-            text-transform:uppercase;
-            opacity:.7;
-            position:relative;z-index:1;
+            margin-top: 5px;
+            font-size: clamp(9px, 2vw, 13px);
+            color: var(--orange);
+            letter-spacing: clamp(1px, 1vw, 5px);
+            text-transform: uppercase; opacity: .7;
+            position: relative; z-index: 1;
         }
 
-        /* SERVER BLOCK */
+        /* ═══ SERVER BLOCK ═══ */
         .server-block {
-            position:relative;z-index:2;
-            display:flex;align-items:center;justify-content:center;
-            flex-wrap:wrap;gap:10px;margin-top:22px;
+            position: relative; z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        /* Рядок 1: IP + Статус */
+        .sb-row1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            flex-wrap: nowrap;
         }
 
         .ip-btn {
-            display:flex;align-items:center;gap:8px;
-            background:var(--surface2);border:1px solid var(--border);
-            border-radius:10px;padding:10px 18px;
-            cursor:pointer;
-            color:#fff;font-family:'Orbitron',monospace;
-            font-size:clamp(10px,2vw,13px);font-weight:700;
-            letter-spacing:.5px;
-            transition:border-color .2s,background .2s,transform .15s;
-            -webkit-tap-highlight-color:transparent;
-            user-select:none;
+            display: flex; align-items: center; gap: 7px;
+            background: var(--s2); border: 1px solid var(--br);
+            border-radius: 10px; padding: 9px 14px;
+            cursor: pointer; color: #fff;
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(10px, 2.5vw, 13px);
+            font-weight: 700; letter-spacing: .5px;
+            transition: border-color .2s, background .2s, transform .15s;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none; white-space: nowrap;
+            flex-shrink: 1; min-width: 0;
         }
-        .ip-btn:hover  { border-color:var(--orange); background:rgba(255,106,0,.08); }
-        .ip-btn:active { transform:scale(.96); }
-        .ip-btn.copied { border-color:var(--green); color:var(--green); }
-        .ip-icon { font-size:15px; opacity:.5; transition:opacity .2s,transform .3s; }
-        .ip-btn:hover .ip-icon { opacity:1; }
-        .ip-btn.copied .ip-icon { opacity:1; transform:scale(1.3) rotate(10deg); }
+        .ip-btn:hover  { border-color: var(--orange); background: rgba(255,106,0,.08); }
+        .ip-btn:active { transform: scale(.96); }
+        .ip-btn.copied { border-color: var(--green); color: var(--green); }
+        .ip-icon { font-size: 14px; opacity: .5; flex-shrink: 0; transition: opacity .2s, transform .3s; }
+        .ip-btn:hover .ip-icon, .ip-btn.copied .ip-icon { opacity: 1; }
+        .ip-btn.copied .ip-icon { transform: scale(1.3) rotate(10deg); }
 
         .status-badge {
-            display:flex;align-items:center;gap:8px;
-            background:var(--surface2);border:1px solid var(--border);
-            border-radius:10px;padding:10px 16px;
-            font-size:clamp(11px,2vw,13px);font-weight:600;
-            min-width:120px;justify-content:center;
-            transition:border-color .4s;
+            display: flex; align-items: center; gap: 7px;
+            background: var(--s2); border: 1px solid var(--br);
+            border-radius: 10px; padding: 9px 13px;
+            font-size: clamp(11px, 2.5vw, 13px); font-weight: 600;
+            white-space: nowrap; flex-shrink: 0;
+            transition: border-color .4s;
         }
-        .status-badge.is-online  { border-color:rgba(34,197,94,.35); }
-        .status-badge.is-offline { border-color:rgba(239,68,68,.3); }
+        .status-badge.is-on  { border-color: rgba(34,197,94,.35); }
+        .status-badge.is-off { border-color: rgba(239,68,68,.3); }
 
         .sdot {
-            width:9px;height:9px;border-radius:50%;
-            background:var(--muted);flex-shrink:0;
-            transition:background .4s,box-shadow .4s;
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--muted); flex-shrink: 0;
+            transition: background .4s, box-shadow .4s;
         }
-        .sdot.on  { background:var(--green);box-shadow:0 0 10px var(--green);animation:blink 2s infinite; }
-        .sdot.off { background:var(--red);box-shadow:0 0 8px var(--red); }
+        .sdot.on  { background: var(--green); box-shadow: 0 0 8px var(--green); animation: blink 2s infinite; }
+        .sdot.off { background: var(--red);   box-shadow: 0 0 6px var(--red); }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-        .players-block {
-            display:flex;align-items:center;gap:10px;
-            background:var(--surface2);border:1px solid var(--border);
-            border-radius:10px;padding:10px 16px;min-width:200px;
+        /* Рядок 2: Гравці */
+        .sb-row2 {
+            display: flex; align-items: center; gap: 10px;
+            background: var(--s2); border: 1px solid var(--br);
+            border-radius: 10px; padding: 9px 14px;
+            width: 100%; max-width: 420px;
         }
-        .pl-label { font-size:12px;color:var(--muted);white-space:nowrap; }
-        .pl-wrap  { flex:1;background:#1e1e1e;border-radius:4px;height:5px;overflow:hidden; }
-        .pl-fill  { height:100%;border-radius:4px;background:linear-gradient(90deg,var(--orange),#ffcc00);width:0%;transition:width 1s cubic-bezier(.4,0,.2,1); }
-        .pl-num   { font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:#fff;white-space:nowrap;min-width:48px;text-align:right; }
+        .pl-label { font-size: 12px; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+        .pl-wrap  { flex: 1; background: #1e1e1e; border-radius: 4px; height: 5px; overflow: hidden; min-width: 0; }
+        .pl-fill  { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--orange), #ffcc00); width: 0%; transition: width 1s cubic-bezier(.4,0,.2,1); }
+        .pl-num   { font-family: 'Orbitron', monospace; font-size: 11px; font-weight: 700; color: #fff; white-space: nowrap; flex-shrink: 0; }
 
-        /* NAV */
+        /* ═══ NAV ═══ */
         nav {
-            background:rgba(6,6,6,.97);
-            backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-            position:sticky;top:0;z-index:1000;
-            display:flex;justify-content:center;align-items:center;
-            flex-wrap:wrap;gap:4px;
-            padding:0 16px;min-height:52px;
-            border-bottom:1px solid #181818;
+            background: rgba(6,6,6,.97);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            position: sticky; top: 0; z-index: 1000;
+            display: flex; align-items: center; justify-content: center;
+            flex-wrap: nowrap;
+            padding: 0 10px;
+            height: 48px;
+            border-bottom: 1px solid #181818;
+            gap: 2px;
         }
+        .nav-links { display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center; }
         nav a {
-            color:var(--muted);text-decoration:none;font-weight:600;
-            text-transform:uppercase;font-size:clamp(10px,1.5vw,12px);
-            letter-spacing:1.5px;cursor:pointer;
-            padding:7px 14px;border-radius:6px;
-            border:1px solid transparent;
-            transition:color .2s,background .2s,border-color .2s;
-            -webkit-tap-highlight-color:transparent;
+            color: var(--muted); text-decoration: none; font-weight: 600;
+            text-transform: uppercase; font-size: clamp(9px, 2.2vw, 12px);
+            letter-spacing: 1px; cursor: pointer;
+            padding: 6px 10px; border-radius: 6px;
+            border: 1px solid transparent;
+            transition: color .2s, background .2s, border-color .2s;
+            -webkit-tap-highlight-color: transparent;
+            white-space: nowrap;
         }
-        nav a:hover  { color:#fff;background:rgba(255,106,0,.08); }
-        nav a.active { color:var(--orange);border-color:rgba(255,106,0,.25);background:rgba(255,106,0,.06); }
+        nav a:hover  { color: #fff; background: rgba(255,106,0,.08); }
+        nav a.active { color: var(--orange); border-color: rgba(255,106,0,.25); background: rgba(255,106,0,.06); }
 
-        .lang-sw { display:flex;gap:4px;margin-left:10px; }
+        .lang-sw { display: flex; gap: 3px; flex-shrink: 0; margin-left: 4px; }
         .lbtn {
-            background:transparent;color:var(--muted);
-            border:1px solid var(--border);padding:5px 11px;
-            border-radius:5px;cursor:pointer;
-            font-size:11px;font-family:'Exo 2','Segoe UI',sans-serif;
-            font-weight:600;letter-spacing:1px;
-            transition:all .2s;
-            -webkit-tap-highlight-color:transparent;
+            background: transparent; color: var(--muted);
+            border: 1px solid var(--br); padding: 4px 9px;
+            border-radius: 5px; cursor: pointer;
+            font-size: 10px; font-family: 'Exo 2', 'Segoe UI', sans-serif;
+            font-weight: 600; letter-spacing: 1px;
+            transition: all .2s; white-space: nowrap;
+            -webkit-tap-highlight-color: transparent;
         }
-        .lbtn:hover  { color:#fff;border-color:#444; }
-        .lbtn.active { background:var(--orange);border-color:var(--orange);color:#fff; }
+        .lbtn:hover  { color: #fff; border-color: #444; }
+        .lbtn.active { background: var(--orange); border-color: var(--orange); color: #fff; }
 
-        /* PAGES */
-        .container { max-width:1100px;margin:32px auto;padding:0 16px;flex:1;width:100%; }
+        /* ═══ PAGES ═══ */
+        .container { max-width: 1100px; margin: 24px auto; padding: 0 12px; flex: 1; width: 100%; }
 
-        .page-section { display:none; }
-        .page-section.active {
-            display:block;
-            animation:pageIn .4s cubic-bezier(.4,0,.2,1) both;
-        }
-        /* Анімація переходу між сторінками */
-        .page-section.out {
-            display:block;
-            animation:pageOut .25s cubic-bezier(.4,0,.2,1) both;
-        }
-        @keyframes pageIn  { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes pageOut { from{opacity:1;transform:translateY(0)} to{opacity:0;transform:translateY(-10px)} }
+        .page-section { display: none; }
+        .page-section.active { display: block; animation: pgIn .35s cubic-bezier(.4,0,.2,1) both; }
+        .page-section.out    { display: block; animation: pgOut .2s cubic-bezier(.4,0,.2,1) both; }
+        @keyframes pgIn  { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes pgOut { from { opacity:1; transform:translateY(0); } to { opacity:0; transform:translateY(-8px); } }
 
-        /* GRID */
-        .grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(min(230px,100%),1fr));gap:14px; }
+        /* ═══ GRID ═══ */
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
-        /* CARD */
+        /* ═══ SHOP CARD ═══ */
         .card {
-            background:var(--surface);border:1px solid var(--border);
-            border-radius:12px;padding:20px 16px 16px;
-            display:flex;flex-direction:column;gap:10px;
-            position:relative;overflow:hidden;
-            transition:border-color .25s,transform .25s,box-shadow .25s;
+            background: var(--s1); border: 1px solid var(--br);
+            border-radius: 12px; padding: 16px 12px 12px;
+            display: flex; flex-direction: column; gap: 8px;
+            position: relative; overflow: hidden;
+            transition: border-color .25s, transform .25s, box-shadow .25s;
         }
-        .card::before { content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--rank-color,var(--orange));opacity:.5;transition:opacity .25s; }
-        .card:hover { border-color:#383838;transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.6); }
+        .card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--rank-color,var(--orange)); opacity:.5; transition:opacity .25s; }
+        .card:hover { border-color:#383838; transform:translateY(-3px); box-shadow:0 10px 28px rgba(0,0,0,.6); }
         .card:hover::before { opacity:1; }
 
-        .rank-name { font-family:'Orbitron',monospace;font-size:14px;font-weight:700;text-align:center;color:var(--rank-color,var(--orange)); }
-        .price { font-size:22px;font-weight:700;color:#4ade80;text-align:center; }
+        .rank-name { font-family:'Orbitron',monospace; font-size:clamp(10px,2.5vw,14px); font-weight:700; text-align:center; color:var(--rank-color,var(--orange)); }
+        .price { font-size:clamp(17px,4vw,22px); font-weight:700; color:#4ade80; text-align:center; }
         .buy-btn {
-            background:var(--orange);color:#fff;padding:9px;
-            text-decoration:none;border-radius:7px;font-weight:700;
-            font-size:12px;letter-spacing:1px;text-transform:uppercase;
-            text-align:center;display:block;
-            transition:background .2s,transform .15s;
-            -webkit-tap-highlight-color:transparent;
+            background: var(--orange); color: #fff; padding: 8px;
+            text-decoration: none; border-radius: 7px; font-weight: 700;
+            font-size: clamp(10px,2.5vw,12px); letter-spacing: 1px;
+            text-transform: uppercase; text-align: center; display: block;
+            transition: background .2s, transform .15s;
+            -webkit-tap-highlight-color: transparent;
         }
-        .buy-btn:hover  { background:var(--orange-dark); }
-        .buy-btn:active { transform:scale(.97); }
+        .buy-btn:hover  { background: var(--od); }
+        .buy-btn:active { transform: scale(.97); }
 
-        /* F-CARD */
+        /* ═══ FEATURE CARD ═══ */
         .f-card {
-            background:var(--surface);border:1px solid var(--border);
-            border-radius:12px;padding:20px 16px;position:relative;
-            overflow:hidden;transition:border-color .25s,transform .25s;
+            background: var(--s1); border: 1px solid var(--br);
+            border-radius: 12px; padding: 16px 12px;
+            position: relative; overflow: hidden;
+            transition: border-color .25s, transform .25s;
         }
-        .f-card::before { content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--rank-color,var(--orange)); }
-        .f-card:hover { border-color:#383838;transform:translateY(-3px); }
-        .f-card h3 { font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:var(--rank-color,var(--orange));margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border); }
-        .flist { list-style:none;font-size:13px;color:#bbb;line-height:1.85; }
-        .flist li::before { content:"▸ ";color:var(--orange); }
-        .kit-tag { background:rgba(255,106,0,.1);color:var(--orange);border:1px solid rgba(255,106,0,.2);padding:5px 10px;border-radius:6px;font-size:11px;font-family:'Orbitron',monospace;font-weight:700;display:block;text-align:center;margin-top:12px;letter-spacing:1px; }
+        .f-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--rank-color,var(--orange)); }
+        .f-card:hover { border-color:#383838; transform:translateY(-3px); }
+        .f-card h3 { font-family:'Orbitron',monospace; font-size:clamp(10px,2.2vw,13px); font-weight:700; color:var(--rank-color,var(--orange)); margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid var(--br); }
+        .flist { list-style:none; font-size:clamp(11px,2.5vw,13px); color:#bbb; line-height:1.8; }
+        .flist li::before { content:"▸ "; color:var(--orange); }
+        .kit-tag { background:rgba(255,106,0,.1); color:var(--orange); border:1px solid rgba(255,106,0,.2); padding:4px 8px; border-radius:6px; font-size:clamp(9px,2vw,11px); font-family:'Orbitron',monospace; font-weight:700; display:block; text-align:center; margin-top:10px; letter-spacing:1px; }
 
-        /* RULES */
-        .rules-box { background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:clamp(18px,4vw,36px);max-width:720px; }
-        .rules-box h2 { font-family:'Orbitron',monospace;font-size:clamp(13px,2vw,16px);color:var(--orange);letter-spacing:3px;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--border); }
-        .rcat { margin-bottom:24px; }
-        .rcat h3 { font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--orange);margin-bottom:10px;display:flex;align-items:center;gap:8px; }
-        .rcat h3::after { content:'';flex:1;height:1px;background:var(--border); }
-        .ri { display:flex;gap:12px;padding:10px 13px;border-radius:7px;margin-bottom:5px;background:var(--surface2);border:1px solid var(--border);font-size:13px;transition:border-color .2s; }
-        .ri:hover { border-color:#383838; }
-        .rn { font-family:'Orbitron',monospace;font-size:10px;color:var(--orange);font-weight:700;min-width:28px;padding-top:2px; }
-        .rt { color:#ccc;line-height:1.5; }
+        /* ═══ RULES ═══ */
+        .rules-box { background:var(--s1); border:1px solid var(--br); border-radius:16px; padding:20px 16px; }
+        .rules-box h2 { font-family:'Orbitron',monospace; font-size:clamp(12px,3vw,16px); color:var(--orange); letter-spacing:2px; margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid var(--br); }
+        .rcat { margin-bottom:20px; }
+        .rcat h3 { font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--orange); margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+        .rcat h3::after { content:''; flex:1; height:1px; background:var(--br); }
+        .ri { display:flex; gap:10px; padding:9px 11px; border-radius:7px; margin-bottom:4px; background:var(--s2); border:1px solid var(--br); font-size:clamp(11px,2.5vw,13px); }
+        .rn { font-family:'Orbitron',monospace; font-size:10px; color:var(--orange); font-weight:700; min-width:26px; padding-top:1px; flex-shrink:0; }
+        .rt { color:#ccc; line-height:1.5; }
         .rt b { color:#fff; }
-        .pun { display:inline-block;margin-top:4px;background:rgba(255,106,0,.1);border:1px solid rgba(255,106,0,.2);color:var(--orange);font-size:11px;padding:2px 7px;border-radius:4px;font-weight:600; }
+        .pun { display:inline-block; margin-top:3px; background:rgba(255,106,0,.1); border:1px solid rgba(255,106,0,.2); color:var(--orange); font-size:10px; padding:1px 6px; border-radius:4px; font-weight:600; }
 
-        /* TOAST */
+        /* ═══ TOAST ═══ */
         .toast {
-            position:fixed;bottom:28px;left:50%;
-            transform:translateX(-50%) translateY(80px);
-            background:var(--green);color:#000;
-            padding:11px 22px;border-radius:10px;
-            font-weight:700;font-size:13px;
-            z-index:9999;pointer-events:none;
-            opacity:0;
-            transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .3s;
-            white-space:nowrap;
+            position: fixed; bottom: 24px; left: 50%;
+            transform: translateX(-50%) translateY(70px);
+            background: var(--green); color: #000;
+            padding: 10px 20px; border-radius: 10px;
+            font-weight: 700; font-size: 13px;
+            z-index: 9999; pointer-events: none;
+            opacity: 0;
+            transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s;
+            white-space: nowrap;
         }
-        .toast.show { transform:translateX(-50%) translateY(0);opacity:1; }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-        footer { text-align:center;padding:26px;color:#282828;font-size:13px;border-top:1px solid #111;margin-top:40px; }
+        footer { text-align:center; padding:22px; color:#282828; font-size:12px; border-top:1px solid #111; margin-top:32px; }
         footer span { color:var(--orange); }
 
-        /* MOBILE */
-        @media(max-width:600px){
-            .server-block { gap:8px; }
-            .ip-btn { padding:9px 13px;font-size:11px; }
-            .status-badge { min-width:100px;padding:9px 12px; }
-            .players-block { min-width:0;width:100%;max-width:290px; }
-            nav { gap:2px;padding:6px 10px;min-height:46px; }
-            nav a { padding:6px 10px;font-size:10px;letter-spacing:1px; }
-            .lang-sw { margin-left:6px; }
-            .container { margin:20px auto; }
-            .grid { grid-template-columns:1fr 1fr;gap:10px; }
-            .card { padding:14px 12px 12px; }
-            .rank-name { font-size:11px; }
-            .price { font-size:18px; }
-            .buy-btn { font-size:11px;padding:8px; }
-            .rules-box { padding:16px; }
-            .ri { flex-direction:column;gap:4px; }
-        }
-        @media(max-width:380px){
-            .grid { grid-template-columns:1fr; }
-            h1 { letter-spacing:2px; }
+        /* ═══ DESKTOP OVERRIDES ═══ */
+        @media (min-width: 600px) {
+            header { padding: 44px 20px 36px; }
+            .server-block { flex-direction: row; align-items: center; flex-wrap: wrap; }
+            .sb-row1 { width: auto; flex: 0 0 auto; }
+            .sb-row2 { width: auto; flex: 0 0 auto; min-width: 200px; max-width: none; }
+            .grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+            nav { height: 52px; gap: 4px; padding: 0 16px; }
+            nav a { padding: 7px 14px; font-size: 12px; letter-spacing: 1.5px; }
+            .container { margin: 32px auto; padding: 0 16px; }
         }
     </style>
 </head>
@@ -277,29 +276,35 @@
 <header>
     <div id="pts"></div>
     <h1>LANKCI WORLD</h1>
-    <p class="tagline" id="tagline">Minecraft Anarchy Server</p>
+    <p class="tagline">Minecraft Anarchy Server</p>
 
     <div class="server-block">
-        <button class="ip-btn" id="ipBtn">
-            <span>LankciWorld.mcsh.io</span>
-            <span class="ip-icon">⧉</span>
-        </button>
-        <div class="status-badge" id="statusBadge">
-            <div class="sdot" id="sdot"></div>
-            <span id="stext" style="color:var(--muted)" data-ua="Перевірка..." data-en="Checking...">Перевірка...</span>
+        <!-- Рядок 1: IP + Status -->
+        <div class="sb-row1">
+            <button class="ip-btn" id="ipBtn">
+                <span>LankciWorld.mcsh.io</span>
+                <span class="ip-icon">⧉</span>
+            </button>
+            <div class="status-badge" id="sBadge">
+                <div class="sdot" id="sdot"></div>
+                <span id="stext" style="color:var(--muted)" data-ua="Перевірка..." data-en="Checking...">Перевірка...</span>
+            </div>
         </div>
-        <div class="players-block">
+        <!-- Рядок 2: Players -->
+        <div class="sb-row2">
             <span class="pl-label" data-ua="Гравці" data-en="Players">Гравці</span>
             <div class="pl-wrap"><div class="pl-fill" id="plBar"></div></div>
             <span class="pl-num" id="plNum">—</span>
         </div>
     </div>
-</headerc
+</header>
 
 <nav>
-    <a id="nav-donate"   onclick="showPage('donate')"   class="active" data-ua="Магазин"     data-en="Shop">Магазин</a>
-    <a id="nav-features" onclick="showPage('features')"              data-ua="Функціонал"  data-en="Features">Функціонал</a>
-    <a id="nav-rules"    onclick="showPage('rules')"                 data-ua="Правила"     data-en="Rules">Правила</a>
+    <div class="nav-links">
+        <a id="nav-donate"   onclick="showPage('donate')"   class="active" data-ua="Магазин"    data-en="Shop">Магазин</a>
+        <a id="nav-features" onclick="showPage('features')"               data-ua="Функціонал" data-en="Features">Функціонал</a>
+        <a id="nav-rules"    onclick="showPage('rules')"                  data-ua="Правила"    data-en="Rules">Правила</a>
+    </div>
     <div class="lang-sw">
         <button class="lbtn active" id="btn-ua" onclick="setLang('ua')">UA</button>
         <button class="lbtn"        id="btn-en" onclick="setLang('en')">EN</button>
@@ -325,22 +330,11 @@
     <!-- ФУНКЦІОНАЛ -->
     <section id="features" class="page-section">
         <div class="grid">
-            <div class="f-card" style="--rank-color:#ffd700"><h3>Imperator</h3><ul class="flist"><li data-ua="Політ /fly" data-en="Flight /fly">Політ /fly</li><li data-ua="Час та погода" data-en="Time & Weather">Час та погода</li><li data-ua="8 точок дому" data-en="8 homes /sethome">8 точок дому</li><li data-ua="Блискавка (тролінг)" data-en="Lightning (trolling)">Блискавка (тролінг)</li></ul><div class="kit-tag">/kit imperator</div></div>
-            <div class="f-card" style="--rank-color:#32cd32"><h3>The Second Coming</h3><ul class="flist"><li data-ua="Політ /fly" data-en="Flight /fly">Політ /fly</li><li data-ua="5 точок дому" data-en="5 homes /sethome">5 точок дому</li><li data-ua="Ситість /feed" data-en="Feed /feed">Ситість /feed</li></ul><div class="kit-tag">/kit second</div></div>
-            <div class="f-card" style="--rank-color:#22c55e"><h3>H4CK3R</h3><ul class="flist"><li data-ua="10 точок дому" data-en="10 homes /sethome">10 точок дому</li><li data-ua="Політ /fly" data-en="Flight /fly">Політ /fly</li><li data-ua="Верстак /workbench" data-en="Workbench /workbench">Верстак /workbench</li></ul><div class="kit-tag">/kit h4ck3r</div></div>
-            <div class="f-card" style="--rank-color:#ef4444"><h3>The Dark Lord</h3><ul class="flist"><li data-ua="Ефекти темряви" data-en="Darkness effects">Ефекти темряви</li><li data-ua="Підпалити /burn" data-en="Burn /burn">Підпалити /burn</li></ul><div class="kit-tag">/kit dark_lord</div></div>
+            <div class="f-card" style="--rank-color:#ffd700"><h3>Imperator</h3><ul class="flist"><li data-ua="Політ /fly" data-en="Flight /fly">Політ /fly</li><li data-ua="Час та погода" data-en="Time & Weather">Час та погода</li><li data-ua="8 точок дому" data-en="8 homes">8 точок дому</li><li data-ua="Блискавка" data-en="Lightning">Блискавка</li></ul><div class="kit-tag">/kit imperator</div></div>
+            <div class="f-card" style="--rank-color:#32cd32"><h3>The Second Coming</h3><ul class="flist"><li data-ua="Політ /fly" data-en="Flight /fly">Політ /fly</li><li data-ua="5 точок дому" data-en="5 homes">5 точок дому</li><li data-ua="Ситість /feed" data-en="Feed /feed">Ситість /feed</li></ul><div class="kit-tag">/kit second</div></div>
+            <div class="f-card" style="--rank-color:#22c55e"><h3>H4CK3R</h3><ul class="flist"><li data-ua="10 точок дому" data-en="10 homes">10 точок дому</li><li data-ua="Політ /fly" data-en="Flight /fly">Політ /fly</li><li data-ua="Верстак /workbench" data-en="Workbench">Верстак /workbench</li></ul><div class="kit-tag">/kit h4ck3r</div></div>
+            <div class="f-card" style="--rank-color:#ef4444"><h3>The Dark Lord</h3><ul class="flist"><li data-ua="Ефекти темряви" data-en="Dark effects">Ефекти темряви</li><li data-ua="Підпалити /burn" data-en="Burn /burn">Підпалити /burn</li></ul><div class="kit-tag">/kit dark_lord</div></div>
             <div class="f-card" style="--rank-color:#ffff00"><h3>The Chosen One</h3><ul class="flist"><li data-ua="Політ /fly" data-en="Flight /fly">Політ /fly</li><li data-ua="Зняття ефектів" data-en="Clear effects">Зняття ефектів</li><li data-ua="Загасити вогонь" data-en="Extinguish fire">Загасити вогонь</li></ul><div class="kit-tag">/kit chosen</div></div>
             <div class="f-card" style="--rank-color:#3b82f6"><h3>Dragon</h3><ul class="flist"><li data-ua="Політ /fly" data-en="Flight /fly">Політ /fly</li><li data-ua="Імунітет до лави" data-en="Lava immunity">Імунітет до лави</li><li data-ua="Блок на голову" data-en="Block on head">Блок на голову</li></ul><div class="kit-tag">/kit dragon</div></div>
-            <div class="f-card" style="--rank-color:#00d4ff"><h3>Hero</h3><ul class="flist"><li data-ua="2 точки дому" data-en="2 homes /sethome">2 точки дому</li><li data-ua="Лікування /heal" data-en="Heal /heal">Лікування /heal</li></ul><div class="kit-tag">/kit hero</div></div>
-            <div class="f-card" style="--rank-color:#333"><h3 style="color:#444" data-ua="Скоро" data-en="Coming Soon">Скоро</h3><ul class="flist"><li>???</li><li>???</li></ul><div class="kit-tag" style="color:#333;border-color:#1e1e1e">???</div></div>
-        </div>
-    </section>
-
-    <!-- ПРАВИЛА -->
-    <section id="rules" class="page-section">
-        <div class="rules-box">
-            <h2 data-ua="ПРАВИЛА СЕРВЕРА" data-en="SERVER RULES">ПРАВИЛА СЕРВЕРА</h2>
-
-            <div class="rcat">
-                <h3 data-ua="1. Поведінка в чаті" data-en="1. Chat Behaviour">1. Поведінка в чаті</h3>
-                <div class="ri"><span class="rn">1.1</span><div class="rt"><b data-ua="Образа батьків гравців" data-en="Insulting players' parents">Образа батьків гравців</b><br><span class="pun" data-ua="Мут
+            <div class="f-card" style="--rank-color:#00d4ff"><h3>Hero</h3><ul class="flist"><li data-ua="2 точки дому" data-en="2 homes">2 точки дому</li><li data-ua="Лікування /heal" data-en="Heal /heal">Лікування /heal</li></ul><div class="kit-tag">/kit hero</div></div>
+            <div class="f-card" style="--rank-color:#333"><h3 style="color:#444" data-ua="Скоро" data-en="Coming S
